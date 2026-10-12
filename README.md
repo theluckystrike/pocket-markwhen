@@ -16,7 +16,7 @@ Open a `.mw` file to see dates above event text. A one-day event shows one date.
 
 ### Source editor
 
-Select Source to edit the text in a plain text area. Select Timeline to read the changed plan. Edits request the normal Obsidian file save. Save source also writes pending edits when you need a direct save. The plugin keeps header text, blank lines and event syntax in the source string.
+Select Source to edit the text in a plain text area. Select Timeline to read the changed plan. Edits request the normal Obsidian file save. Save source also writes pending edits when you need a direct save. The plugin keeps header text, blank lines and event syntax in the source string. A file with Windows (CRLF) line endings keeps them after an edit, and a file that you only open is not written again.
 
 <img src="https://raw.githubusercontent.com/theluckystrike/pocket-markwhen/HEAD/docs/source.png" alt="The original trip source in the source tab" width="720">
 

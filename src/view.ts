@@ -9,6 +9,8 @@ export class PocketMarkwhenView extends TextFileView {
 	private panel: TimelinePanel | null = null;
 	private timelineButton: HTMLButtonElement;
 	private sourceButton: HTMLButtonElement;
+	/** The file text from disk. A textarea changes CRLF to LF, so getViewData restores the line endings. */
+	private loaded = '';
 	constructor(leaf: WorkspaceLeaf, private plugin: PocketMarkwhenPlugin) {
 		super(leaf);
 		this.contentEl.addClass('pocket-markwhen-view');
@@ -19,7 +21,7 @@ export class PocketMarkwhenView extends TextFileView {
 		const save = tabs.createEl('button', { text: 'Save source' });
 		this.timelineEl = this.contentEl.createDiv();
 		this.sourceEl = this.contentEl.createEl('textarea', { cls: 'pocket-markwhen-source', attr: { 'aria-label': 'Markwhen source', spellcheck: 'false' } });
-		this.sourceEl.addEventListener('input', () => { this.data = this.sourceEl.value; this.requestSave(); });
+		this.sourceEl.addEventListener('input', () => { this.data = this.getViewData(); this.requestSave(); });
 		this.timelineButton.addEventListener('click', () => this.showTab(false));
 		this.sourceButton.addEventListener('click', () => this.showTab(true));
 		save.addEventListener('click', () => { void this.save(); });
@@ -28,14 +30,18 @@ export class PocketMarkwhenView extends TextFileView {
 	getViewType(): string { return VIEW_ID; }
 	getDisplayText(): string { return this.file?.basename ?? 'Pocket Markwhen'; }
 	getIcon(): string { return 'calendar-range'; }
-	getViewData(): string { return this.sourceEl.value; }
+	getViewData(): string {
+		const text = this.sourceEl.value;
+		if (text === this.loaded.replace(/\r\n?/g, '\n')) return this.loaded;
+		return this.loaded.includes('\r\n') ? text.replace(/\r?\n/g, '\r\n') : text;
+	}
 	setViewData(data: string, clear: boolean): void {
 		if (clear) this.clear();
-		this.data = data; this.sourceEl.value = data;
+		this.data = data; this.loaded = data; this.sourceEl.value = data;
 		this.renderTimeline();
 	}
 	clear(): void {
-		this.data = ''; this.sourceEl.value = '';
+		this.data = ''; this.loaded = ''; this.sourceEl.value = '';
 		if (this.panel) { this.removeChild(this.panel); this.panel = null; }
 		this.timelineEl.empty();
 	}
