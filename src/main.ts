@@ -12,7 +12,7 @@ export default class PocketMarkwhenPlugin extends Plugin {
 	pro: SponsorsManager | null = null;
 	async onload(): Promise<void> {
 		await this.loadSettings();
-		const pro = createGitHubSponsors(this.app, this.manifest.id, SPONSORS);
+		const pro = createGitHubSponsors(this.app, this.manifest.id, SPONSORS, this);
 		pro.init(); this.pro = pro; bindPro(pro);
 		const tab = new PocketMarkwhenSettingTab(this.app, this);
 		this.addSettingTab(tab);
