@@ -2,6 +2,7 @@ import { PluginSettingTab, type SettingDefinitionItem } from 'obsidian';
 import { sponsorsSettingItems } from './license/github-obsidian';
 import { PRO_UI } from './pro';
 import type PocketMarkwhenPlugin from './main';
+import { helloSettingItems } from './hello/settings';
 
 export interface TimelineFilter { from: string; to: string; tag: string }
 export interface SavedFilter extends TimelineFilter { name: string }
@@ -13,6 +14,11 @@ export function normalizeSettings(saved: Partial<PocketMarkwhenSettings> | null 
 export class PocketMarkwhenSettingTab extends PluginSettingTab {
 	constructor(app: ConstructorParameters<typeof PluginSettingTab>[0], public plugin: PocketMarkwhenPlugin) { super(app, plugin); }
 	getSettingDefinitions(): SettingDefinitionItem[] {
+		// The product rows, then the "More from NoteMods" card (packages/hello).
+		return [...this.productSettingDefinitions(), ...helloSettingItems()];
+	}
+
+	productSettingDefinitions(): SettingDefinitionItem[] {
 		return [
 			{ name: 'Local timelines', desc: 'Date filters stay in each open view. Named filters stay in this vault. Timeline files stay in the vault.' },
 			...(this.plugin.pro ? sponsorsSettingItems(this.plugin.pro, PRO_UI) : []),

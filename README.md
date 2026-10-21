@@ -64,7 +64,7 @@ Export Markdown list writes the visible events to a new note in the vault root. 
 
 ## Install
 
-This source tree is prepared for a community release by the publisher. For a manual install, copy `main.js`, `manifest.json` and `styles.css` from a release into `.obsidian/plugins/pocket-markwhen/` in a test vault. Enable the plugin in Community plugins. It needs Obsidian 1.13.4 or later.
+Open Settings, Community plugins, Browse. Search for "Pocket Markwhen". Select Install, then Enable. For a manual install, copy `main.js`, `manifest.json` and `styles.css` from a release into `.obsidian/plugins/pocket-markwhen/`. Enable the plugin in Community plugins. It needs Obsidian 1.13.4 or later.
 
 ## Usage
 
@@ -87,6 +87,8 @@ Save this text as `trip.mw`. Open the file from the file list. If another plugin
 The timeline displays event first-line text as plain text. HTML in that text does not create page elements. Images, links, task controls and supplemental description blocks are not rendered as interactive Markdown. Edit those details in Source. The bundled Markwhen parser, version 1.2.0, reads the syntax; this view does not expand repeating events into a calendar. The view runs the parser without its optional cache; the build omits that cache module.
 
 ## Settings
+
+After a minor or major update, this plugin opens one What's new tab in the background. The tab and settings card suggest other NoteMods plugins and Zovo Chat and link to notemods.com for feedback ([privacy](https://notemods.com/privacy/)). The tab sends no data. Turn the tab off in Settings.
 
 The settings tab has the GitHub Sponsors controls and a description of local storage. A date or tag filter belongs to its open timeline panel. Switching from Source to Timeline creates a fresh panel. Use a saved name if you need to restore a filter after that switch or after reopening a file.
 
