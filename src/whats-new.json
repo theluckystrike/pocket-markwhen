@@ -1,14 +1,9 @@
 {
 	"id": "pocket-markwhen",
 	"name": "Pocket Markwhen",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"changes": [
-		"New Send feedback command. It opens a page where you can report a problem or suggest an idea.",
 		"Keeps CRLF line endings in .mw files so that the source view does not rewrite a file that you only open."
-	],
-	"changes_user": [
-		"New Send feedback command. It opens a page where you can report a problem or suggest an idea.",
-		"Just opening a timeline file no longer rewrites its line endings."
 	],
 	"tip": "Select Today to jump to the first event on or after the current day.",
 	"thanks": "Hi, I am Michael, a solo developer in Poland. Pocket Markwhen is one of over 100 small plugins that I make. Thank you for keeping it in your editor.",
