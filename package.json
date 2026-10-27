@@ -1,7 +1,6 @@
 {
 	"name": "pocket-markwhen",
-	"repository": {"type": "git", "url": "theluckystrike/pocket-markwhen.git"},
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"private": true,
 	"description": "Read and edit Markwhen timelines on phones and tablets without a change to the file format.",
 	"main": "main.js",

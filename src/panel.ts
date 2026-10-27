@@ -1,7 +1,7 @@
 import { MarkdownRenderChild, Notice, normalizePath } from 'obsidian';
 import type PocketMarkwhenPlugin from './main';
 import { MARKDOWN_NAME, PRO_NAME, proLabel } from './labels';
-import { isPro, onProChange } from './pro';
+import { isPro, onProChange, proNotice, proText } from './pro';
 import { filterEvents, localDay, markdownList, parseTimeline, todayIndex, type TimelineEvent, type TimelineSource } from './timeline';
 import type { TimelineFilter } from './settings';
 
@@ -104,12 +104,12 @@ export class TimelinePanel extends MarkdownRenderChild {
 		while (parent && parent !== this.containerEl) { if (parent.instanceOf(HTMLDetailsElement)) parent.open = true; parent = parent.parentElement; }
 		row.addClass('pocket-markwhen-today'); row.scrollIntoView({ block: 'center' }); row.focus({ preventScroll: true }); return true;
 	}
-	private requirePro(): boolean {
+	private requirePro(lead = `This feature needs ${PRO_NAME}.`): boolean {
 		if (isPro()) return true;
-		new Notice(`This feature needs ${PRO_NAME}. Open the plugin settings to sign in with GitHub.`); return false;
+		proNotice(lead); return false;
 	}
 	async combine(paths: string[]): Promise<boolean> {
-		if (!this.requirePro()) return false;
+		if (!this.requirePro(`Combined files need ${PRO_NAME}.`)) return false;
 		const rev = ++this.revision;
 		const sources: TimelineSource[] = [...this.initialSources];
 		try {
@@ -130,7 +130,7 @@ export class TimelinePanel extends MarkdownRenderChild {
 		await this.plugin.saveSettings(); this.drawPro(); return true;
 	}
 	async exportMarkdown(): Promise<string | null> {
-		if (!this.requirePro()) return null;
+		if (!this.requirePro(`The ${MARKDOWN_NAME} list export needs ${PRO_NAME}.`)) return null;
 		if (!this.visible.length) { new Notice('No dated events to export.'); return null; }
 		let path = normalizePath(`Markwhen events ${localDay()}.md`);
 		for (let n = 2; this.plugin.app.vault.getAbstractFileByPath(path); n++) path = normalizePath(`Markwhen events ${localDay()} ${n}.md`);
@@ -141,7 +141,13 @@ export class TimelinePanel extends MarkdownRenderChild {
 		this.proArea.empty();
 		const details = this.proArea.createEl('details');
 		details.createEl('summary', { text: proLabel('Combine files, saved filters and export') });
-		if (!isPro()) { details.createEl('p', { text: `The timeline, source editor, date filters and today are free. Sign in with GitHub in settings to use ${PRO_NAME}.` }); return; }
+		if (!isPro()) {
+			details.createEl('p', { text: proText(`The timeline, source editor, date filters and today are free. Combined files, saved filters and export need ${PRO_NAME}.`) });
+			// A free user can select the two Pro actions: each shows the Pro notice and reads or writes nothing.
+			details.createEl('button', { text: proLabel('Combine files') }).addEventListener('click', () => { void this.combine([]); });
+			details.createEl('button', { text: proLabel(`Export ${MARKDOWN_NAME} list`) }).addEventListener('click', () => { void this.exportMarkdown(); });
+			return;
+		}
 		const label = details.createEl('label', { text: 'Choose .mw files' });
 		const select = label.createEl('select', { attr: { multiple: '', size: '4', 'aria-label': 'Files to combine' } });
 		for (const file of this.plugin.app.vault.getFiles().filter((f) => f.extension === 'mw').sort((a, b) => a.path.localeCompare(b.path))) {

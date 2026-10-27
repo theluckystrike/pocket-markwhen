@@ -10,7 +10,7 @@ afterEach(() => { for (const p of panels.splice(0)) p.unload(); resetPro(); docu
 function manager(pro: boolean) {
 	let active = pro;
 	const listeners = new Set<() => void>();
-	const m = { isPro: () => active, onChange: (cb: () => void) => { listeners.add(cb); return () => listeners.delete(cb); }, set(value: boolean) { active = value; for (const cb of listeners) cb(); } };
+	const m = { isPro: () => active, getState: () => ({ status: 'signed-out', lastAttemptAt: 0 }), hasToken: () => false, config: { sponsorLogin: 'theluckystrike' }, onChange: (cb: () => void) => { listeners.add(cb); return () => listeners.delete(cb); }, set(value: boolean) { active = value; for (const cb of listeners) cb(); } };
 	bindPro(m as never); return m;
 }
 function panel(source = '2026-03-01: A\n\n# Later\n2027: Year event') {

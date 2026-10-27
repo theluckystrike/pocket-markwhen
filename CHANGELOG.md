@@ -1,5 +1,11 @@
 # pocket-markwhen
 
+## 1.1.2
+
+### Patch Changes
+
+- f20bc55: The Pro section now shows Combine files and Export Markdown list without Pro. A click shows how to get Pro, with a Sponsor on GitHub button, and reads or writes no file.
+
 ## 1.1.1
 
 ### Patch Changes

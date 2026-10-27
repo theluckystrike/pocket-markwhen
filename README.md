@@ -58,7 +58,7 @@ Set dates and a tag, enter a filter name and select Save filter. Load the name f
 
 ### Export Markdown list (Pro)
 
-Export Markdown list writes the visible events to a new note in the vault root. The name includes the local date and a number if that name exists. The list includes date labels, text, tags and source paths. Export leaves the timeline sources in place. It reports a status notice with the output path.
+Export Markdown list writes the visible events to a new note in the vault root. The name includes the local date and a number if that name exists. The list includes date labels, text, tags and source paths. Export leaves the timeline sources in place. It reports a status notice with the output path. Without Pro, Combine files and Export show the Pro notice and change no file.
 
 <img src="https://raw.githubusercontent.com/theluckystrike/pocket-markwhen/HEAD/docs/export.png" alt="Filtered trip events in a new Markdown list note" width="720">
 
