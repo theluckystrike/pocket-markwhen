@@ -8,7 +8,7 @@ import { bindPro, resetPro } from '../src/pro';
 // A free user opens the Pro section of the timeline and sees "Combine files (Pro)" and "Export Markdown list (Pro)".
 // A click shows the shared Pro notice with the "Sponsor on GitHub" button. No file is read or written and no setting
 // is saved. A Pro user's export writes the list.
-const PITCH = 'Sponsor on GitHub, then sign in from the plugin settings.';
+const PITCH = 'One payment turns on Pro in every NoteMods plugin. Sponsor on GitHub, then sign in from the plugin settings.';
 const COMBINE = 'Combine files (Pro)';
 const EXPORT = 'Export Markdown list (Pro)';
 
